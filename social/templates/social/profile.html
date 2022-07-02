@@ -1,0 +1,34 @@
+{% extends 'social/feed.html' %}
+{% block content %}
+    <div class="container py-5">
+        <div class="text-center w-100">
+            <img src="{{ user.profile.image.url }}"
+                 class="rounded-circle" width="150" alt="photo-profile">
+            <h2 class="fw-bold text-dark my-1">@{{ user.username }}</h2>
+            {% if request.user.is_authenticated %}
+		        {% if user.username != request.user.username %}
+			        {% if user not in request.user.profile.following%}
+				        <a class="btn btn-primary rounded shadow fw-bold py-1 px-2" href="{% url 'follow' user %}">Follow</a>
+			        {% else %}
+				        <a class="btn btn-primary rounded shadow fw-bold py-1 px-2"  href="{% url 'unfollow' user %}">Unfollow</a>
+			        {% endif %}
+		        {% endif %}
+	        {% endif %}
+        <div class="d-flex justify-content-center text-center align-items-center text-dark">
+            <section class="mx-5">
+                <h5>Post</h5>
+                <p class="text-muted">{{ user.posts.count }}</p>
+            </section>
+            <section class="ms-5">
+                <h5>Followers</h5>
+                <p class="text-muted">{{ user.profile.followers.count }}</p>
+            </section>
+            <section class="mx-5">
+                <h5>Following</h5>
+                <p class="text-muted">{{ user.profile.following.count }}</p>
+            </section>
+        </div>
+        </div>
+    </div>
+    {{ block.super }}
+{% endblock %}

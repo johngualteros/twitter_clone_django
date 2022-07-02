@@ -1,0 +1,11 @@
+{% extends 'social/layout.html' %}
+
+{% block content %}
+    <div class="container">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" id="submit" class="btn btn-primary fw-bold py-1 px-2">Register</button>
+        </form>
+    </div>
+{% endblock %}

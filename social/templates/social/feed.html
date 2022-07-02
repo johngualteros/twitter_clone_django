@@ -1,0 +1,20 @@
+{% extends 'social/layout.html' %}
+{% load humanize %}
+{% block content %}
+    <div class="container py-5 h-auto px-3">
+        {% for post in posts %}
+        <div class="w-100 h-auto border border-2 border-secondary rounded shadow-sm p-4 my-2">
+            <div class="d-flex align-items-center w-100">
+                <img src="{{ post.user.profile.image.url }}"
+                     alt="photo user" class="rounded-circle" width="50">
+                    <a href="{% url 'profile' post.user.username %}" class="text-dark">@{{ post.user.username }}</a>
+                    <i class="bi bi-clock-fill mx-2"></i>
+                    <time data-time="#" class="text-muted">{{ post.timestamp|naturaltime }}</time>
+            </div>
+            <div>
+                <p class="text-dark fs-5">{{ post.content }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
